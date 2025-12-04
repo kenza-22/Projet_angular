@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { Suggestion } from '../../models/suggestion';
+import { Router } from '@angular/router';
+import { Suggestion } from '../../../models/suggestion';
+
 @Component({
-  selector: 'app-list-suggestion',
-  templateUrl: './list-suggestion.component.html',
-  styleUrls: ['./list-suggestion.component.css'] 
+  selector: 'app-suggestions-list',
+  templateUrl: './suggestions-list.component.html',
+  styleUrl: './suggestions-list.component.css'
 })
-export class ListSuggestionComponent {
+export class SuggestionsListComponent {
   searchQuery: string = '';
   favoriteSuggestions: Suggestion[] = [];
   
@@ -61,6 +63,8 @@ export class ListSuggestionComponent {
       isFavorite: false
     }
   ];
+
+  constructor(private router: Router) {}
 
   get suggestions(): Suggestion[] {
     if (!this.searchQuery.trim()) {
@@ -141,5 +145,9 @@ export class ListSuggestionComponent {
 
   isAccepted(status: string): boolean {
     return status === 'acceptee';
+  }
+
+  viewDetails(suggestionId: number): void {
+    this.router.navigate(['/suggestions', suggestionId]);
   }
 }

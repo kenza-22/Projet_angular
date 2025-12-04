@@ -3,9 +3,28 @@
     <div class="logo">
       Campus Ideas
     </div>
+
     <nav class="header-nav">
-      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">Accueil</a>
-      <a routerLink="/suggestions" routerLinkActive="active" class="nav-link">Suggestions</a>
+      <a routerLink="/home"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: true }"
+         class="nav-link">
+         Home
+      </a>
+
+      <a routerLink="/suggestions"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: false }"
+         class="nav-link">
+         Suggestions
+      </a>
+
+      <a routerLink="/users"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: true }"
+         class="nav-link">
+         Users
+      </a>
     </nav>
   </div>
 </header>

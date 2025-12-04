@@ -1,0 +1,70 @@
+<div class="list-suggestion-container">
+  <h1 class="page-title">Liste des suggestions</h1>
+  
+  <div class="search-container">
+    <input 
+      type="text" 
+      class="search-input" 
+      placeholder="Rechercher une suggestion"
+      [(ngModel)]="searchQuery"
+    />
+  </div>
+
+  <div class="suggestions-list">
+    <div 
+      *ngFor="let suggestion of suggestions" 
+      class="suggestion-card"
+    >
+      <h2 class="suggestion-title">{{ suggestion.title }}</h2>
+      
+      <div class="suggestion-meta">
+        <span class="suggestion-category">{{ suggestion.category }}</span>
+        <span class="suggestion-date">{{ formatDate(suggestion.date) }}</span>
+      </div>
+
+      <p class="suggestion-description">{{ suggestion.description }}</p>
+
+      <div class="suggestion-status-container">
+        <span 
+          class="status-badge clickable"
+          [ngClass]="{
+            'status-accepted': suggestion.status === 'acceptee',
+            'status-refused': suggestion.status === 'refusee'
+          }"
+          (click)="toggleStatus(suggestion)"
+        >
+          {{ getStatusLabel(suggestion.status) }}
+        </span>
+      </div>
+
+      <div *ngIf="isAccepted(suggestion.status)" class="suggestion-actions">
+        <button 
+          class="btn-like"
+          (click)="likeSuggestion(suggestion)"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 11v8a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1z"/>
+            <path d="M15 11V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3z"/>
+          </svg>
+          Like {{ suggestion.likes || 0 }}
+        </button>
+        <button 
+          class="btn-favorite"
+          [ngClass]="{'active': suggestion.isFavorite}"
+          (click)="toggleFavorite(suggestion)"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          {{ suggestion.isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris' }}
+        </button>
+        <button 
+          class="btn-details"
+          (click)="viewDetails(suggestion.id)"
+        >
+          Details
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

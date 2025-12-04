@@ -1,0 +1,50 @@
+<div class="suggestion-details-container">
+  <div *ngIf="suggestion; else notFound" class="suggestion-details-card">
+    <button class="btn-back" (click)="backToList()">
+      ← Back to list
+    </button>
+    
+    <h1 class="suggestion-title">{{ suggestion.title }}</h1>
+    
+    <div class="suggestion-meta">
+      <span class="suggestion-category">{{ suggestion.category }}</span>
+      <span class="suggestion-date">{{ formatDate(suggestion.date) }}</span>
+      <span 
+        class="status-badge"
+        [ngClass]="{
+          'status-accepted': suggestion.status === 'acceptee',
+          'status-refused': suggestion.status === 'refusee'
+        }"
+      >
+        {{ getStatusLabel(suggestion.status) }}
+      </span>
+    </div>
+
+    <div class="suggestion-description">
+      <h2>Description</h2>
+      <p>{{ suggestion.description }}</p>
+    </div>
+
+    <div class="suggestion-info">
+      <div class="info-item">
+        <strong>ID:</strong> {{ suggestion.id }}
+      </div>
+      <div class="info-item" *ngIf="suggestion.likes !== undefined">
+        <strong>Likes:</strong> {{ suggestion.likes }}
+      </div>
+      <div class="info-item" *ngIf="suggestion.isFavorite">
+        <strong>Favori:</strong> Oui
+      </div>
+    </div>
+  </div>
+
+  <ng-template #notFound>
+    <div class="not-found">
+      <h2>Suggestion non trouvée</h2>
+      <p>La suggestion avec l'ID {{ suggestionId }} n'existe pas.</p>
+      <button class="btn-back" (click)="backToList()">
+        ← Back to list
+      </button>
+    </div>
+  </ng-template>
+</div>
